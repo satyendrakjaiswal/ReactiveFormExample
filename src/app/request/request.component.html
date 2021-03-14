@@ -1,0 +1,46 @@
+<div>
+  <h4>Deal info</h4>
+  <form [formGroup]="reqForm">
+    <div>
+      <label>Name:</label>
+      <div>
+        <input type="text" name="name" formControlName="name">
+      </div>
+    </div>
+    <div>
+      <label>Date:</label>
+      <div>
+        <input type="date" name="date" formControlName="date">
+      </div>
+    </div>
+
+
+    <div>
+      <h4>Facilities:</h4>
+      <div formArrayName="facilities">
+        <div *ngFor="let fac of reqForm.get('facilities')['controls']; let i = index" [formGroupName]="i">
+          <div>
+            <input type="text" name="facName" formControlName="facName">
+          </div>
+          <div>
+            <select name="country" formControlName="country">
+              <option value="USA">USA</option>
+              <option value="UK">UK</option>
+            </select>
+          </div>
+          <div>
+            <button type="button" (click)="removeFacility(i)">Remove</button>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div>          
+        <button type="button" (click)="addFacility()">Add Facility</button>
+      </div>      
+    </div>
+    <div>
+        {{reqForm.value | json}}
+      </div>
+  </form>
+</div>
+
