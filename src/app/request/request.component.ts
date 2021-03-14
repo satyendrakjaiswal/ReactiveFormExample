@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-request',
@@ -9,20 +9,20 @@ import { FormArray, FormControl, FormGroup } from '@angular/forms';
 export class RequestComponent implements OnInit {
   reqForm: FormGroup;
 
-  constructor() { }
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    this.reqForm = new FormGroup({
-      name: new FormControl(null),
-      date: new FormControl(null),
-      facilities: new FormArray([])
+    this.reqForm = this.fb.group({
+      name: null,
+      date: null,
+      facilities: this.fb.array([])
     });
   }
 
   addFacility(): any{
-    const facFormGroup = new FormGroup({
-      facName: new FormControl(null),
-      country: new FormControl(null)
+    const facFormGroup = this.fb.group({
+      facName: null,
+      country: null
     });
     (this.reqForm.get('facilities') as FormArray).push(facFormGroup);
   }
